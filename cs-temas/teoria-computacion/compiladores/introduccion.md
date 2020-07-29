@@ -12,7 +12,18 @@ En este capítulo de introducción presentaré las distintas formas de los tradu
 
 Dicho de una forma simple, un compilador es un programa que puede leer un programa en un lenguaje (el lenguaje _fuente_) y traducirlo en un programa equivalente en otro lenguaje (lenguaje _destino_). **Vease figura 1.1.** Una función importante del compilador es reportar cualquier error en el programa fuente que detecte durante el proceso de traducción.
 
-![](img1.png)
+![](img1.png)   
 
+Si el programa destino es un programa ejecutable en lenguaje máquina, entonces el usuario puede ejecutarlo para procesar las entradas y producir salidas (resultados); **Vea la figura 1.2**   
 
+![](img2.png)   
 
+Un intérprete es otro tipo común de procesador de lenguaje. En vez de producir un programa destino como una traducción, el interprete nos da la apariencia de ejecutar directamente las operaciones especificadas en el programa origen (fuente) con las entradas proporcionadas por el usuario, como se muestra en la figura 1.3.   
+
+![](img3.png)   
+
+El programa destino en el lenguaje máquina que produce un compilador es, por lo general, más rápido que un intérprete al momento de asignar las entradas a las salidas. No obstante, por lo regular, el intérprete puede ofrecer mejores diagnósticos de error que un compilador, ya que ejecuta el programa fuente instrucción por instrucción.   
+
+**Ejemplo 1.1**   
+
+Los procesadores del lenguaje Java combinan la compilación y la interpretación, como se muestra en la **figura 1.4** 
