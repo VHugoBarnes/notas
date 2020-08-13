@@ -12,7 +12,4 @@ Si examinamos el proceso de compilación con más detalle vemos que opera en for
 
 > Algunos compiladores tienen una fase de optimización de código independiente de la máquina, entre el _frontend_ y el _backend_. Como esta es opcional, puede faltar una de las dos fases de optimización de la figura 1.6.   
 
-![](img6.png)   
-
-## 1.2.1 Análisis de Léxico
-
+![](img6.png)   1-2 La estructura de un compilador
