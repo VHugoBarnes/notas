@@ -50,3 +50,17 @@ En esta representación, los nombres de los tokens =, + y * son símbolos abstra
 
 ![](img7.png)
 > Figura 1.7 Traducción de una instrucción de asignación.
+
+## 1.2.2 Análisis Sintáctico   
+
+La segunda fase del compilador es el analizador sintáctico o _parser_. El parser utiliza los primeros componentes de los tokens producidos por el analizador de léxico para crear una representación intermedia en forma de árbol que describa la estructura gramatical del flujo de tokens. Una representación típica es el _árbol sintáctico_, en el cual cada nodo interior representa una operación y los hijos del nodo representan los argumentos de la operación. En la figura 1.7 se muestra un árbol sintáctico para el flujo de tokens (1.2) como salida del analizador sintáctico.   
+Este árbol muestra el orden en que debe llevarse a cabo las operaciones en la siguiente asignación:
+
+```python
+        posicion = inicial + velocidad * 60
+```
+
+El árbol tiene un nodo interior etiquetado como *, con <id,3> como su hijo izquierdo, y el entero 60 como su hijo derecho. El nodo <id,3> representa el identidicador `velocidad`. El nodo etiquetado como * hace explicito que primero debemos multiplicar el valor de la `velocidad` por 60. El nodo etiquetado como `+` indica que debemos sumar el resultado de esta multiplicación al valor `inicial`. La raíz del árbol, que se etiqueta como `=`, indica que debemos almacenar el resultado de esta suma en la ubicación para el identifiador de `posicion`. Este ordenamiento de operaciones es consistente con las convenciones usuales de la aritmética, las cuales nos indican que la multiplicación tiene mayor procedencia que la suma y, por ende, debe realizarse antes que la suma.   
+Las fases siguientes del compilador utilizan la estructura gramatical para ayudar a analizar el programa fuente y generar el programa destino. En el capítulo 4 se usarán gramáticas libres de contexto para especificar la estructura gramatical de los lenguajes de programación, y hablaremos sobre los algoritmos para construir analizadores sintácticos eficientes de manera automática, a partir de ciertas clases gramáticas. En los capítulos 2 y 5 veremos que las definiciones orientadas a la sintaxis pueden ayudar a especificar la traducción de las construcciones del lenguaje de programación.   
+
+## 1.2.3 Análisis semántico
