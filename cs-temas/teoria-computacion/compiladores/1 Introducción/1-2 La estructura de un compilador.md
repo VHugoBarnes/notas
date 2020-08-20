@@ -93,7 +93,21 @@ Un algoritmo simple de generación de código intermedio, seguido de la optimiza
 
 ```python
         t1 = id3 * 60.0
-        id1 = id2 + t1
+        id1 = id2 + t1                  (1.4)
 ```
 
 Hay una gran variación en la cantidad de optimización de código que hacen los distintos compiladores. En aquellos que realizan la mayor optimización, a los que se les denomina como "compiladores optimizadores", se invierte mucho tiempo en esta fase. Hay optimizaciones simples que mejoran en forma considerable el tiempo de ejecución del programa destino, sin reducir demasiado la velocidad de la compilación. Los capítulos 8 en adelante hablan con más detalle sobre las optimizaciones independientes y dependientes de la máquina.
+
+## 1.2.6 Generación de código
+
+El generador de código recibe como entrada una representación intermedia del programa fuente y le asigna un lenguaje destino. Si el lenguaje destino es código máquina, se seleccionan registros o ubicaciones (localidades) de memoria para cada una de las variables que utiliza el programa. Después, las instrucciones intermedias se traducen en secuencias de instrucciones de máquinas que realizan la misma tarea. Un aspecto de la generación de código es la asignación juiciosa de los registros para guardar las variables.   
+Por ejemplo, usando los registros **R1** y **R2**, el código intermedio en (1.4) podría traducirse de la siguiente manera:   
+
+```assembly
+    LDF  R2,  id3
+    MULF R2,  R2, #60.0
+    LDF  R1,  id2
+    ADDF R1,  R1, R2
+    STF  id1, R1
+```
+
