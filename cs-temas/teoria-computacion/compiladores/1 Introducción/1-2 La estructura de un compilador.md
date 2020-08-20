@@ -70,3 +70,30 @@ En _analizador semántico_ utiliza el árbol sintáctico y la información de la
 La especificación del lenguaje puede permitir ciertas conversiones de tipo conocidas como _coerciones_. Por ejemplo, puede aplicarse un operador binario aritmetico a un par de enteros o a un par de números de punto flotante. Si el operador se aplica a un número de punto flotante y a un entero, el compilador puede convertir u obligar a que se convierta en un número de punto flotante.   
 Dicha conversión aparece en la figura 1.7. Suponga que `posicion`, `inicial`, y `velocidad` se han declarado como números de punto flotante, y que el lexema `60`por sí solo forma un entero. El comprobador de tipo en el analizador semántico de la figura 1.7 descubre que se aplica el operador * al número de punto flotante `velocidad` y al entero `60`. En este caso, el entero se puede convertir a un número de punto flotante. Observe en la figura **1.7** que la salida del analizador semántico tiene un nodo adicional para el operador **`inttofloat`**, que convierte de manera explícita su argumento tipo entero a un número de punto flotante. En el capítulo 6 hablaremos sobre la comprobación de tipos y el análisis semántico.
 
+## 1.2.4 Generación de código intermedio
+
+En el proceso de traducir un programa fuente a código destino, un compilador puede construir una o más representaciones intermedias, las cuales pueden tener una variedad de formas. Los árboles sintácticos son una forma de representación intermedia; por lo general, se utilizan durante el análisis sintáctico y semántico.   
+Después del análisis sintáctico y semántico del programa fuente, muchos compiladores generan un nivel bajo explícito, o una representación intermedia similar al código máquina, que podemos considerar como un programa para una máquina abstracta. Esta representación intermedia debe tener dos propiedades importantes: debe ser fácil de producir y fácil de traducir en la máquina destino.   
+En el capítulo 6, consideramos una forma intermedia llamada _código de tres direcciones_, que consiste en una secuencia de instrucciones similares a ensamblador, con tres operandos por instrucción. Cada operando puede actuar como registro. La salida del generador de código intermedio de la figura 1.7 consiste en la secuencia de código de tres direcciones.  
+
+```python
+        t1 = inttofloat(60)
+        t2 = id3 * t1
+        t3 = id2 + t2
+        id1 = t3                         (1.3)
+```
+
+Hay varios puntos que vale la pena mencionar sobre las instrucciones de tres direcciones. **En primer lugar**, cada instrucción de asignación de tres direcciones tiene, al menos, un operador de lado derecho. Por ende, estas instrucciones corrigen el orden en el que van a realizarse las operaciones; la multiplicación va antes que la suma en el programa fuente (1.1). **En segundo lugar**, el compilador debe generar un nombre temporal para guardar el valor calculado por una instrucción de tres direcciones. **En tercer lugar**, algunas "instrucciones de tres direcciones" como la primera y la última en la secuencia (1.3) anterior, tiene menos de tres operandos.   
+En el capítulo 6 hablaremos sobre las representaciones intermedias principales que se utilizan en los compiladores. En el capítulo 5 introduce las técnicas para la traducción dirigida por la sintaxis, las cuales se dividen en el capítulo 6 para la comprobación de tipos y la generación de código intermedio en las construcciones comunes de los lenguajes de programación, como las expresiones, las construcciones de control de flujo y las llamadas a procedimientos.   
+
+## 1.2.5 Optimización de código
+
+La fase de optimización de código independiente de la máquina trata de mejorar el código intermedio, de manera que se produzca un mejor código destino. Por lo general, mejor significa más rápido, pero pueden lograrse otros objetivos, como un código más corto, o un código de destino que consuma menos poder. Por ejemplo, un algoritmo directo genera el código intermedio (1.3), usando una instrucción para cada operador en la representación tipo árbol que produce un analizador semántico.  
+Un algoritmo simple de generación de código intermedio, seguido de la optimización de código, es una manera razonable de obtener un buen código de destino. El optimizador puede deducir que la conversión del 60, de entero a punto flotante, puede realizarse de una vez por todas en el tiempo de compilación, por lo que puede eliminar la operación **`inttofloat`** sustitutendo el 60 por el número de punto flotante 60.0. Lo que es más, `t3` se utiliza sólo una vez para transmitir su valor a `id1`, para que el optimizador pueda transformar (1.3) en la siguiente secuencia más corta.   
+
+```python
+        t1 = id3 * 60.0
+        id1 = id2 + t1
+```
+
+Hay una gran variación en la cantidad de optimización de código que hacen los distintos compiladores. En aquellos que realizan la mayor optimización, a los que se les denomina como "compiladores optimizadores", se invierte mucho tiempo en esta fase. Hay optimizaciones simples que mejoran en forma considerable el tiempo de ejecución del programa destino, sin reducir demasiado la velocidad de la compilación. Los capítulos 8 en adelante hablan con más detalle sobre las optimizaciones independientes y dependientes de la máquina.
