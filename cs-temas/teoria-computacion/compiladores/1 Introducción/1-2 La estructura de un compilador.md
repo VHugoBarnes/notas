@@ -111,3 +111,7 @@ Por ejemplo, usando los registros **R1** y **R2**, el código intermedio en (1.4
     STF  id1, R1
 ```
 
+## 1.2.7 Administración de la tabla de símbolos
+
+Una función escencial de un compilador es registrar los nombres de las variables que se utilizan en el programa fuente, y recolectar la información sobre varios atributos de cada nombre. Estos atributos pueden proporcionar información acerca del espacio de almacenamiento que se asigna para un nombre, su tipo, su alcance (en qué parte del programa puede usarse su valor), y en el caso de los nombres de procedimientos, cosas como el número y los tipos de argumento (por ejemplo, por valor o por referencia) y el tipo devuelto.   
+La tabla de símbolos es una estructura de datos que contiene el registro para cada nombre de variable, con campos para los atributos del nombre. La estructura de datos debe diseñarse de tal forma que permita al compilador buscar el registro para cada nombre, y almacenar u obtener datos de ese registro con rapidez. En el capítulo 2 hablaremos sobre las tablas de símbolos.
