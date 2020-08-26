@@ -115,3 +115,23 @@ Por ejemplo, usando los registros **R1** y **R2**, el código intermedio en (1.4
 
 Una función escencial de un compilador es registrar los nombres de las variables que se utilizan en el programa fuente, y recolectar la información sobre varios atributos de cada nombre. Estos atributos pueden proporcionar información acerca del espacio de almacenamiento que se asigna para un nombre, su tipo, su alcance (en qué parte del programa puede usarse su valor), y en el caso de los nombres de procedimientos, cosas como el número y los tipos de argumento (por ejemplo, por valor o por referencia) y el tipo devuelto.   
 La tabla de símbolos es una estructura de datos que contiene el registro para cada nombre de variable, con campos para los atributos del nombre. La estructura de datos debe diseñarse de tal forma que permita al compilador buscar el registro para cada nombre, y almacenar u obtener datos de ese registro con rapidez. En el capítulo 2 hablaremos sobre las tablas de símbolos.
+
+## 1.2.8 Agrupamiento de fases en pasadas
+
+El tema sobre las fases tiene que ver con la organización lógica de un compilador. En una implementación, las actividades de varias fases pueden agruparse en una sola pasada, la cual lee un archivo de entrada y escribe un archivo de salida. Por ejemplo, las fases correspondientes al _front-end_ del análisis léxico, análisis sintáctico, análisis semántico y generación de código intermedio podrían agruparse en una sola pasada. La optimización de código podría ser una pasada opcional. Entonces podría haber una pasada de back-end, consistente en la generación de código para una máquina destino específica.   
+
+Algunas colecciones de compiladores se han creado en base a representaciones intermedias diseñadas con cuidado, las cuales permiten que el front-end para un lenguaje en específico interconecte con el back-end para cierta máquina destino. Con estas colecciones, podemos producir compiladores para distintos lenguajes fuente para una máquina destino, mediante la combinación de distintos front-end con sus back-end para esa máquina destino. De manera similar, mediante la combinación de un front-end con back-end para distintas máquinas destino.   
+
+## 1.2.9 Herramientas de construcción de compiladores   
+
+Al igual que un desarrollador de software, el desarrollador de compiladores puede utilizar para su beneficio los entornos de desarrollo de software modernos que contienen herramientas como editores de lenguaje, depuradores, administradores de versiones, profilers, ambientes seguros de prueba, etcétera. Además de estas herramientas generales para el desarrollo de software, se han creado otras herramienas más especializadas para ayudar a implementar las diversas fases de un compilador.   
+Estas herramientas utilizan lenguajes especializados para especificar e implementar componentes específicos, y muchas utilizan algoritmos bastantes sofisticados. Las herramientas más exitosas son las que ocultan los detalles del algoritmo de generación y producen componentes que pueden integrarse con facilidad al resto del compilador. Algunas herramientas de construcción de compiladores de uso común son:   
+
+1. _Generadores de analizadores sintácticos (parsers)_, que producen de manera automática analizadores sintácticos a partir de una descripción gramatical de un lenguaje de programación.
+2. _Generadores de escáneres_, que producen analizadores léxicos a partir de una descripción de los tokens de un lenguaje utilizando expresiones regulares.  
+3. _Motores de análisis de flujo de datos_, que facilitan la recopilación de información de cómo se transmiten los valores de una parte de un programa  a cada una de las otras partes. El análisis de los flujos de datos es una parte clave en la optimización de código.   
+4. _Generadores de generadores de código_, que producen un generador de código a partir de una colección de reglas para traducir cada operación del lenguaje intermedio en el lenguaje máquina para una máquina destino.   
+5. _Motores de análisis de flujo de datos_, que facilitan la recopilación de información de cómo se transmiten los valores de una parte de un programa a cada una de las partes. El análisis de los flujos de datos es una parte clave en la optimización de código.   
+6. _Kits (conjuntos) de herramientas para la construcción de compiladores_, que proporcionan un conjunto integrado de rutinas para construir varias fases de un compilador.   
+
+A lo largo de estos documentos describiré las herramientas a mayor profundidad.
